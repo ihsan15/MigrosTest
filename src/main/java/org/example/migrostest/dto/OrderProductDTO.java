@@ -2,26 +2,15 @@ package org.example.migrostest.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.migrostest.domain.Order;
+import org.example.migrostest.dto.base.MigrosTestBaseDTO;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-@Entity
 @Getter
 @Setter
-public class OrderProductDTO {
+public class OrderProductDTO extends MigrosTestBaseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private OrderDTO order;
 
-    @ManyToOne
-    private Order order;
-
-    @NotNull
     private Long productId;
 
-    @NotNull
     private Integer quantity;
 }

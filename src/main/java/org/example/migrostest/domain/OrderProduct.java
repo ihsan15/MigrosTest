@@ -2,19 +2,18 @@ package org.example.migrostest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.migrostest.domain.base.MigrosTestBaseEntity;
 import org.example.migrostest.dto.OrderProductDTO;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Where(clause = "status = 1")
 @Getter
 @Setter
-public class OrderProduct {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class OrderProduct extends MigrosTestBaseEntity {
 
     @ManyToOne
     private Order order;
@@ -28,14 +27,13 @@ public class OrderProduct {
     public OrderProductDTO toDTO(){
         OrderProductDTO orderProduct = new OrderProductDTO();
         orderProduct.setId(getId());
-        orderProduct.setOrder(getOrder());
         orderProduct.setProductId(getProductId());
         orderProduct.setQuantity(getQuantity());
         return orderProduct;
     }
 
     public OrderProduct fromDTO(OrderProductDTO orderProductDTO, Order order) {
-        this.id = orderProductDTO.getId();
+        setId(orderProductDTO.getId());
         this.order = order;
         this.productId = getProductId();
         this.quantity = getQuantity();
